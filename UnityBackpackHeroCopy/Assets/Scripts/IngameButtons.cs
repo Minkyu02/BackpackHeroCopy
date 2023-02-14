@@ -12,6 +12,7 @@ public class IngameButtons : MonoBehaviour
     [SerializeField]
     private Sprite[] buttonImg = null;
     private Image image = null;
+    public GameObject test = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,5 +60,16 @@ public class IngameButtons : MonoBehaviour
             image.sprite = buttonImg[1];
         }
     }
+
+    public void Btn_Upgrade() {
+        test.GetComponent<InventoryUpgrade>().upgradeCount = 1;
+        test.GetComponent<InventoryUpgrade>().isLevelup = true;
+    }
+
+    public void Btn_UpgradeFin() {
+        test.GetComponent<InventoryUpgrade>().isLevelup = false;
+        test.GetComponent<InventoryUpgrade>().NormalMode();
+    }
+
 
 }
