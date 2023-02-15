@@ -12,21 +12,22 @@ public class InventoryUpgrade : MonoBehaviour
     private int widthCount = 0;
     private int heightCount = 0;
     public bool isLevelup = false;
-    private GameObject[] backpackArray;
-    private GameObject[,] backpack2Array;
+    public GameObject[] backpackArray;
+    public GameObject[,] backpack2Array;
     public GameObject backpackBg = null;
     private RectTransform backpackBgRect = null;
     private GameObject nowPockets = null;
     private float nowPocketsWidth = 0f;
     private float nowPocketsHeight = 0f;
-    public int upgradeCount = 0;
     // Start is called before the first frame update
     void Start()
     {
         backpackBgRect = backpackBg.GetComponent<RectTransform>();
-        nowPockets = transform.GetChild(0).gameObject;
+        nowPockets = transform.GetChild(2).gameObject;
+        InventoryManager.Instance.backPack = this;
         CreatePocket();
         BaseSetting();
+
     }
 
     // Update is called once per frame
@@ -43,6 +44,8 @@ public class InventoryUpgrade : MonoBehaviour
         totalCount = widthCount * heightCount;
         backpackArray = new GameObject[totalCount];
         backpack2Array = new GameObject[heightCount, widthCount];
+        InventoryManager.Instance.backpackArray = new GameObject[totalCount];
+        InventoryManager.Instance.backpack2Array = new GameObject[heightCount, widthCount];
         int x = 0;
         int y = 0;
         for (int i = 0; i < totalCount; i++)
@@ -50,9 +53,11 @@ public class InventoryUpgrade : MonoBehaviour
             GameObject bg = Instantiate(backpackBg);
             bg.transform.position = new Vector3(-300 + (100 * x), 200 - (100 * y), 0);
             backpackArray[i] = bg;
+            InventoryManager.Instance.backpackArray[i] = bg;
             bg.GetComponent<InventoryBg>().index = i;
             bg.name = $"{backpackBg.name}_{i}";
             backpack2Array[y, x] = bg;
+            InventoryManager.Instance.backpack2Array[y, x] = bg;
             bg.GetComponent<InventoryBg>().index_X = x;
             bg.GetComponent<InventoryBg>().index_Y = y;
             x++;
@@ -61,8 +66,9 @@ public class InventoryUpgrade : MonoBehaviour
                 x = 0;
                 y++;
             }
-            bg.transform.SetParent(gameObject.transform.GetChild(1), false);
-            bg.SetActive(false);
+            backpackArray[i].GetComponent<InventoryBg>().OnActive();
+
+            bg.transform.SetParent(gameObject.transform.GetChild(3), false);
         }
     }
 
@@ -72,9 +78,9 @@ public class InventoryUpgrade : MonoBehaviour
         {
             for (int x = 2; x < 5; x++)
             {
-                backpack2Array[y, x].SetActive(true);
-                backpack2Array[y, x].transform.SetParent(nowPockets.transform, false);
                 backpack2Array[y, x].GetComponent<InventoryBg>().isActive = true;
+                backpack2Array[y, x].GetComponent<InventoryBg>().OnActive();
+                backpack2Array[y, x].transform.SetParent(nowPockets.transform, false);
             }
         }
     }
@@ -82,43 +88,106 @@ public class InventoryUpgrade : MonoBehaviour
     {
         if (isLevelup)
         {
-            if (upgradeCount >= 0)
+            if (GameManager.Instance.upgradeCount >= 0)
             {
                 SelectMode();
             }
-            else if (upgradeCount <= 0)
+            else if (GameManager.Instance.upgradeCount <= 0)
             {
                 isLevelup = false;
+                NormalMode();
             }
         }
     }
 
     private void SelectMode()
     {
-        for (int i = 0; i < backpackArray.Length; i++)
+        for (int y = 0; y < heightCount; y++)
         {
-            backpackArray[i].SetActive(true);
-            backpackArray[i].transform.GetChild(0).gameObject.SetActive(false);
-            backpackArray[i].transform.GetChild(1).gameObject.SetActive(true);
-            if (backpackArray[i].GetComponent<InventoryBg>().isActive)
+            for (int x = 0; x < widthCount; x++)
             {
-                backpackArray[i].transform.GetChild(0).gameObject.SetActive(true);
-                backpackArray[i].transform.GetChild(1).gameObject.SetActive(false);
+                if (backpack2Array[y, x].GetComponent<InventoryBg>().isActive)
+                {
+                    if (y < heightCount - 1 && y > 0 && !backpack2Array[y + 1, x].GetComponent<InventoryBg>().isActive)
+                    {
+                        if (backpack2Array[y + 1, x].GetComponent<InventoryBg>().isChoose)
+                        {
+                            backpack2Array[y + 1, x].GetComponent<InventoryBg>().OnSelect();
+                        }
+                        else
+                        {
+                            backpack2Array[y + 1, x].GetComponent<InventoryBg>().OnSelectAble();
+                        }
+                    }
+                    if (y < heightCount && y > 0 && !backpack2Array[y - 1, x].GetComponent<InventoryBg>().isActive)
+                    {
+                        if (backpack2Array[y - 1, x].GetComponent<InventoryBg>().isChoose)
+                        {
+                            backpack2Array[y - 1, x].GetComponent<InventoryBg>().OnSelect();
+                        }
+                        else
+                        {
+                            backpack2Array[y - 1, x].GetComponent<InventoryBg>().OnSelectAble();
+                        }
+                    }
+                    if (x < widthCount && x > 0 && !backpack2Array[y, x - 1].GetComponent<InventoryBg>().isActive)
+                    {
+                        if (backpack2Array[y, x - 1].GetComponent<InventoryBg>().isChoose)
+                        {
+                            backpack2Array[y, x - 1].GetComponent<InventoryBg>().OnSelect();
+                        }
+                        else
+                        {
+
+                            backpack2Array[y, x - 1].GetComponent<InventoryBg>().OnSelectAble();
+                        }
+                    }
+                    if (x < widthCount - 1 && x > 0 && !backpack2Array[y, x + 1].GetComponent<InventoryBg>().isActive)
+                    {
+                        if (backpack2Array[y, x + 1].GetComponent<InventoryBg>().isChoose)
+                        {
+                            backpack2Array[y, x + 1].GetComponent<InventoryBg>().OnSelect();
+                        }
+                        else
+                        {
+                            backpack2Array[y, x + 1].GetComponent<InventoryBg>().OnSelectAble();
+                        }
+
+                    }
+                }
             }
         }
+        // for (int i = 0; i < backpackArray.Length; i++)
+        // {
+        //     if (backpackArray[i].GetComponent<InventoryBg>().isChoose)
+        //     {
+        //         backpackArray[i].GetComponent<InventoryBg>().OnSelect();
+        //     }
+        //     else
+        //     {
+        //         backpackArray[i].GetComponent<InventoryBg>().OnSelectAble();
+        //     }
+        // }
     }
 
     public void NormalMode()
     {
         for (int i = 0; i < backpackArray.Length; i++)
         {
-            if (!backpackArray[i].GetComponent<InventoryBg>().isActive)
-            {
-                backpackArray[i].transform.GetChild(0).gameObject.SetActive(false);
-                backpackArray[i].transform.GetChild(1).gameObject.SetActive(false);
-                isLevelup = false;
-            }
+            backpackArray[i].GetComponent<InventoryBg>().OnActive();
+            isLevelup = false;
         }
     }
+
+    public Vector2Int GetIndex2D(int index_)
+    {
+        return new Vector2Int(index_ / widthCount, index_ % widthCount);
+    }
+
+    // public int GetIndex(Vector2Int index2D_) {
+
+
+    // }
+
 
 }

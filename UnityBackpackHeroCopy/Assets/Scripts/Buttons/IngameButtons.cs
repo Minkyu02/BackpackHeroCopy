@@ -12,12 +12,17 @@ public class IngameButtons : MonoBehaviour
     [SerializeField]
     private Sprite[] buttonImg = null;
     private Image image = null;
-    public GameObject test = null;
+    public GameObject backpack = null;
+    private InventoryUpgrade backpackUpgrade = null;
     // Start is called before the first frame update
     void Start()
     {
         image = gameObject.transform.GetChild(0).GetComponent<Image>();
+        if (backpack != null)
+        {
 
+            backpackUpgrade = backpack.GetComponent<InventoryUpgrade>();
+        }
     }
 
     // Update is called once per frame
@@ -28,7 +33,7 @@ public class IngameButtons : MonoBehaviour
             TopUi.transform.localPosition = TopUi.transform.localPosition + new Vector3(-1920f * Time.deltaTime * 3f, 0f, 0f);
             if (TopUi.transform.localPosition.x <= -1920f)
             {
-                TopUi.transform.localPosition = new Vector3(-1920f,0f,0f);
+                TopUi.transform.localPosition = new Vector3(-1920f, 0f, 0f);
                 isFin = true;
             }
         }
@@ -61,14 +66,25 @@ public class IngameButtons : MonoBehaviour
         }
     }
 
-    public void Btn_Upgrade() {
-        test.GetComponent<InventoryUpgrade>().upgradeCount = 1;
-        test.GetComponent<InventoryUpgrade>().isLevelup = true;
+    public void Btn_Upgrade()
+    {
+        GameManager.Instance.upgradeCount = 4;
+        backpackUpgrade.isLevelup = true;
     }
 
-    public void Btn_UpgradeFin() {
-        test.GetComponent<InventoryUpgrade>().isLevelup = false;
-        test.GetComponent<InventoryUpgrade>().NormalMode();
+    public void Btn_UpgradeFin()
+    {
+        for (int i = 0; i < backpackUpgrade.backpackArray.Length; i++)
+        {
+            if (backpackUpgrade.backpackArray[i].GetComponent<InventoryBg>().isChoose)
+            {
+                backpackUpgrade.backpackArray[i].GetComponent<InventoryBg>().isActive = true;
+            }
+        }
+        GameManager.Instance.upgradeCount = 0;
+        backpackUpgrade.isLevelup = false;
+        backpackUpgrade.NormalMode();
+        
     }
 
 
