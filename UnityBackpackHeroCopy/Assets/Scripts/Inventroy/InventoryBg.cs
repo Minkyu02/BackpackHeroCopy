@@ -7,6 +7,7 @@ public class InventoryBg : MonoBehaviour, IPointerDownHandler
 {
     public bool isActive = false;
     public bool isChoose = false;
+    public bool isHave = false;
     public bool checkActive = false;
     private Image image = null;
     public int index = 0;
