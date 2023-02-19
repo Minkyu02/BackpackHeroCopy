@@ -190,13 +190,52 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
             gameObject.transform.GetChild(3).position = transform.position;
             gameObject.transform.GetChild(2).GetComponent<Image>().enabled = true;
             RectTransform rect = mostNearInventory.GetComponent<RectTransform>();
-            gameObject.transform.GetChild(2).position = mostNearInventory.transform.position + (Vector3)pos_ * 0.01f;
+            switch (rotateCount)
+            {
+                case 0:
+                    Vector3 rotatePos_ = new Vector3(pos_.x, pos_.y, 0f) * 0.01f;
+                    gameObject.transform.GetChild(2).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+                case 1:
+                    rotatePos_ = new Vector3(pos_.x * -1, pos_.y, 0f) * 0.01f;
+                    gameObject.transform.GetChild(2).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+                case 2:
+                    rotatePos_ = new Vector3(pos_.x * -1, pos_.y * -1, 0f) * 0.01f;
+                    gameObject.transform.GetChild(2).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+                case 3:
+                    rotatePos_ = new Vector3(pos_.x, pos_.y * -1, 0f) * 0.01f;
+                    gameObject.transform.GetChild(2).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+            }
+            // gameObject.transform.GetChild(2).position = mostNearInventory.transform.position + (Vector3)pos_ * 0.01f;
             isInit = true;
         }
         else
         {
             gameObject.transform.GetChild(3).GetComponent<Image>().enabled = true;
-            gameObject.transform.GetChild(3).position = mostNearInventory.transform.position + (Vector3)pos_ * 0.01f;
+            switch (rotateCount)
+            {
+                case 0:
+                    Vector3 rotatePos_ = new Vector3(pos_.x, pos_.y, 0f) * 0.01f;
+                    gameObject.transform.GetChild(3).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+                case 1:
+                    rotatePos_ = new Vector3(pos_.x * -1, pos_.y, 0f) * 0.01f;
+                    gameObject.transform.GetChild(3).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+                case 2:
+                    rotatePos_ = new Vector3(pos_.x * -1, pos_.y * -1, 0f) * 0.01f;
+                    gameObject.transform.GetChild(3).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+                case 3:
+                    rotatePos_ = new Vector3(pos_.x, pos_.y * -1, 0f) * 0.01f;
+                    gameObject.transform.GetChild(3).position = mostNearInventory.transform.position + rotatePos_;
+                    break;
+            }
+
+            // gameObject.transform.GetChild(3).position = mostNearInventory.transform.position + (Vector3)pos_ * 0.01f;
             // gameObject.transform.GetChild(3).position = mostNearInventory.transform.position;
             gameObject.transform.GetChild(2).GetComponent<Image>().enabled = false;
             gameObject.transform.GetChild(2).position = transform.position;
