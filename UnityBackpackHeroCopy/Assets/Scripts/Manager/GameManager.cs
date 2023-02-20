@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class GameManager : SingleTonBase<GameManager>
 {
-    
+
     public int upgradeCount = 0;
-    public bool isLevelup = true;
+    public bool isLevelup = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public bool rootMode = false;
+    public bool battleMode = true;
+    public bool idleMode = false;
+    protected override void Awake()
     {
-
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Start()
     {
-
+        base.Start();
+    }
+    protected override void Update()
+    {
+        base.Update();
     }
 }

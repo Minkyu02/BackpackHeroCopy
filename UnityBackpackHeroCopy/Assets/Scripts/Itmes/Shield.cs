@@ -10,9 +10,6 @@ public class Shield : Item
         base.Start();
         ItemSlotCount = 4;
         setPos = new Vector2(50,50);
-        // itemSize[1].GetComponent<Image>().enabled = true;
-        // itemSize[4].GetComponent<Image>().enabled = true;
-        // itemSize[7].GetComponent<Image>().enabled = true;
 
         itemSize[1].GetComponent<ItemSlot>().isActive = true;
         itemSize[2].GetComponent<ItemSlot>().isActive = true;

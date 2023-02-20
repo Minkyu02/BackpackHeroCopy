@@ -1,20 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Sword : Item
+public class Key : Item
 {
-    // Start is called before the first frame update
     protected override void Start()
     {
         itemSize = new GameObject[9];
         base.Start();
-        ItemSlotCount = 3;
+        ItemSlotCount = 1;
 
-        itemSize[1].GetComponent<ItemSlot>().isActive = true;
         itemSize[4].GetComponent<ItemSlot>().isActive = true;
-        itemSize[7].GetComponent<ItemSlot>().isActive = true;
     }
 
     // Update is called once per frame

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleButtons : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class TitleButtons : MonoBehaviour
 
     public void Btn_Play()
     {
-        Debug.Log("Play");
+        SceneManager.LoadScene("02. GamePlay");
     }
     public void Btn_Quit()
     {

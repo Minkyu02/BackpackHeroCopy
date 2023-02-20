@@ -93,6 +93,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   isChoose: 0
+  isHave: 0
+  checkActive: 0
   index: 0
   index_Y: 0
   index_X: 0
@@ -172,7 +174,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.35
 --- !u!1 &9123459469404105352
 GameObject:
   m_ObjectHideFlags: 0

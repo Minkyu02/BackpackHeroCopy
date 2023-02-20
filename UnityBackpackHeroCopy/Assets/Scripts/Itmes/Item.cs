@@ -6,21 +6,21 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    private RectTransform itemRect = null;
-    private bool isSelect = false;
-    private bool isInit = false;
-    private bool InventoryCheck = false;
+    protected RectTransform itemRect = null;
+    protected bool isSelect = false;
+    protected bool isInit = false;
+    protected bool InventoryCheck = false;
     public GameObject mostNearInventory = null;
-    private GameObject prevNearInventory = null;
-    private GameObject itemBackImgPrefebs = null;
+    protected GameObject prevNearInventory = null;
+    protected GameObject itemBackImgPrefebs = null;
     protected GameObject[] itemSize = new GameObject[9];
     protected List<GameObject> inInventory = new List<GameObject>();
-    private InventoryBg inventoryBg = null;
+    protected InventoryBg inventoryBg = null;
     Vector3 point = Vector3.zero;
     protected Vector2 setPos = Vector2.zero;
-    private int slotCount = 0;
+    protected int slotCount = 0;
     protected int ItemSlotCount = 0;
-    private int rotateCount = 0;
+    protected int rotateCount = 0;
 
 
     // Start is called before the first frame update
@@ -40,8 +40,8 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     // Update is called once per frame
     protected virtual void Update()
     {
-        RotateItem();
         MousePoint();
+        RotateItem();
     }
 
     protected virtual void RotateItem()
@@ -64,7 +64,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.rootMode)
         {
             isSelect = true;
             for (int i = 0; i < inInventory.Count; i++)
@@ -72,29 +72,32 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                 inInventory[i].GetComponent<InventoryBg>().isHave = false;
             }
         }
+        else if (Input.GetMouseButtonDown(0) && GameManager.Instance.battleMode) {
+            OnUse();
+        }
     }
     public void OnPointerUp(PointerEventData eventData)
     {
         if (Input.GetMouseButtonUp(0))
         {
             isSelect = false;
-        }
-        if (isInit)
-        {
-            DistancePockets();
-            for (int i = 0; i < inInventory.Count; i++)
+            if (isInit)
             {
-                inInventory[i].GetComponent<InventoryBg>().isHave = true;
-            }
-            transform.position = mostNearInventory.transform.position;
-            gameObject.transform.GetChild(2).GetComponent<Image>().enabled = false;
+                DistancePockets();
+                for (int i = 0; i < inInventory.Count; i++)
+                {
+                    inInventory[i].GetComponent<InventoryBg>().isHave = true;
+                }
+                transform.position = mostNearInventory.transform.position;
+                gameObject.transform.GetChild(2).GetComponent<Image>().enabled = false;
 
-        }
-        else
-        {
-            transform.localPosition = new Vector2(0, -300);
-            gameObject.transform.GetChild(3).GetComponent<Image>().enabled = false;
-            gameObject.transform.GetChild(3).position = transform.position;
+            }
+            else
+            {
+                transform.localPosition = new Vector2(0, -300);
+                gameObject.transform.GetChild(3).GetComponent<Image>().enabled = false;
+                gameObject.transform.GetChild(3).position = transform.position;
+            }
         }
 
     }
@@ -105,6 +108,10 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
             DistancePockets();
             gameObject.transform.position = point;
         }
+    }
+
+    protected virtual void OnUse() {
+
     }
 
     protected delegate void SetAbleDel();
@@ -172,8 +179,6 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         }
         else
         {
-            Debug.Log(slotCount);
-            Debug.Log(ItemSlotCount);
             gameObject.transform.GetChild(3).GetComponent<Image>().enabled = true;
             gameObject.transform.GetChild(3).position = mostNearInventory.transform.position;
             gameObject.transform.GetChild(2).GetComponent<Image>().enabled = false;
@@ -245,7 +250,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 
     // 생각해볼것 
 
-    private void SlotCheck()
+    protected void SlotCheck()
     {
         slotCount = 0;
         RotateCheck();

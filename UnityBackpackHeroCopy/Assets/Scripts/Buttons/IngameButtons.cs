@@ -20,7 +20,6 @@ public class IngameButtons : MonoBehaviour
         image = gameObject.transform.GetChild(0).GetComponent<Image>();
         if (backpack != null)
         {
-
             backpackUpgrade = backpack.GetComponent<InventoryUpgrade>();
         }
     }
@@ -56,6 +55,7 @@ public class IngameButtons : MonoBehaviour
             isBag = false;
             isLeft = true;
             image.sprite = buttonImg[0];
+            PlayerManager.Instance.isMap = true;
         }
         else
         {
@@ -63,17 +63,34 @@ public class IngameButtons : MonoBehaviour
             isBag = true;
             isLeft = false;
             image.sprite = buttonImg[1];
+            PlayerManager.Instance.isMap = false;
         }
     }
 
     public void Btn_Upgrade()
     {
+        GameManager.Instance.isLevelup = true;
+        while (true)
+        {
+            if (PlayerManager.Instance.playerExp < PlayerManager.Instance.playerNextExp)
+            {
+                break;
+            }
+            else
+            {
+                PlayerManager.Instance.playerExp -=PlayerManager.Instance.playerNextExp;
+                PlayerManager.Instance.playerLevel++;
+                PlayerManager.Instance.playerNextExp += 10;
+            }
+        }
         GameManager.Instance.upgradeCount = 4;
+        GameManager.Instance.isLevelup = false;
         backpackUpgrade.isLevelup = true;
     }
 
     public void Btn_UpgradeFin()
     {
+        PlayerManager.Instance.playerExp++;
         for (int i = 0; i < backpackUpgrade.backpackArray.Length; i++)
         {
             if (backpackUpgrade.backpackArray[i].GetComponent<InventoryBg>().isChoose)
@@ -84,7 +101,6 @@ public class IngameButtons : MonoBehaviour
         GameManager.Instance.upgradeCount = 0;
         backpackUpgrade.isLevelup = false;
         backpackUpgrade.NormalMode();
-        
     }
 
 
