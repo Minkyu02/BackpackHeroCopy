@@ -9,7 +9,7 @@ public class GameManager : SingleTonBase<GameManager>
     public bool isLevelup = false;
 
     public bool rootMode = false;
-    public bool battleMode = true;
+    public bool battleMode = false;
     public bool idleMode = false;
     protected override void Awake()
     {
@@ -23,5 +23,26 @@ public class GameManager : SingleTonBase<GameManager>
     protected override void Update()
     {
         base.Update();
+    }
+
+    public void IdleMode()
+    {
+        rootMode = false;
+        battleMode = false;
+        idleMode = true;
+    }
+
+    public void RootMode()
+    {
+        rootMode = true;
+        battleMode = false;
+        idleMode = false;
+    }
+
+    public void BattleMode()
+    {
+        rootMode = false;
+        battleMode = true;
+        idleMode = false;
     }
 }

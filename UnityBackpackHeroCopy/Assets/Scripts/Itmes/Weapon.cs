@@ -7,7 +7,7 @@ public class Weapon : Item
     protected override void Start()
     {
         base.Start();
-        ItemSlotCount = 4;
+        itemSlotCount = 4;
         setPos = new Vector2(0, 50);
         itemSize[1].GetComponent<ItemSlot>().isActive = true;
         itemSize[2].GetComponent<ItemSlot>().isActive = true;

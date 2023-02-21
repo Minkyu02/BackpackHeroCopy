@@ -10,8 +10,8 @@ public class Sword : Item
     {
         itemSize = new GameObject[9];
         base.Start();
-        ItemSlotCount = 3;
-
+        itemSlotCount = 3;
+        itemUseCount = 1;
         itemSize[1].GetComponent<ItemSlot>().isActive = true;
         itemSize[4].GetComponent<ItemSlot>().isActive = true;
         itemSize[7].GetComponent<ItemSlot>().isActive = true;
@@ -31,5 +31,11 @@ public class Sword : Item
     protected override void SetAble()
     {
         base.SetAble();
+    }
+
+    protected override void ItemEffect()
+    {
+        base.ItemEffect();
+        Debug.Log("7데미지");
     }
 }

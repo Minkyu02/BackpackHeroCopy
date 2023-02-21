@@ -17,8 +17,8 @@ public class InventoryUpgrade : MonoBehaviour
     public GameObject backpackBg = null;
     private RectTransform backpackBgRect = null;
     private GameObject nowPockets = null;
-    private float nowPocketsWidth = 0f;
-    private float nowPocketsHeight = 0f;
+    // private float nowPocketsWidth = 0f;
+    // private float nowPocketsHeight = 0f;
     // Start is called before the first frame update
     void Start()
     {

@@ -8,7 +8,7 @@ public class Shield : Item
     protected override void Start()
     {
         base.Start();
-        ItemSlotCount = 4;
+        itemSlotCount = 4;
         setPos = new Vector2(50,50);
 
         itemSize[1].GetComponent<ItemSlot>().isActive = true;

@@ -8,7 +8,7 @@ public class Food : Item
     protected override void Start()
     {
         base.Start();
-        ItemSlotCount = 2;
+        itemSlotCount = 2;
         setPos = new Vector2(50, 0);
         itemSize[4].GetComponent<ItemSlot>().isActive = true;
         itemSize[5].GetComponent<ItemSlot>().isActive = true;

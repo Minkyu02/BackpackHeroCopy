@@ -7,20 +7,23 @@ using UnityEngine.UI;
 public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     protected RectTransform itemRect = null;
-    protected bool isSelect = false;
-    protected bool isInit = false;
-    protected bool InventoryCheck = false;
     public GameObject mostNearInventory = null;
     protected GameObject prevNearInventory = null;
     protected GameObject itemBackImgPrefebs = null;
     protected GameObject[] itemSize = new GameObject[9];
     protected List<GameObject> inInventory = new List<GameObject>();
     protected InventoryBg inventoryBg = null;
-    Vector3 point = Vector3.zero;
+    private Vector3 point = Vector3.zero;
     protected Vector2 setPos = Vector2.zero;
+    protected bool isSelect = false;
+    protected bool isInit = false;
+    protected bool InventoryCheck = false;
+    protected bool itemUseAble = true;
+    public bool isValue = false;
     protected int slotCount = 0;
-    protected int ItemSlotCount = 0;
+    protected int itemSlotCount = 0;
     protected int rotateCount = 0;
+    protected int itemUseCount = 0;
 
 
     // Start is called before the first frame update
@@ -42,6 +45,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     {
         MousePoint();
         RotateItem();
+        UseCheck();
     }
 
     protected virtual void RotateItem()
@@ -64,6 +68,11 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (isInit && GameManager.Instance.rootMode)
+        {
+            isInit = false;
+            OutInventory();
+        }
         if (Input.GetMouseButtonDown(0) && GameManager.Instance.rootMode)
         {
             isSelect = true;
@@ -72,13 +81,14 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                 inInventory[i].GetComponent<InventoryBg>().isHave = false;
             }
         }
-        else if (Input.GetMouseButtonDown(0) && GameManager.Instance.battleMode) {
+        else if (Input.GetMouseButtonDown(0) && GameManager.Instance.battleMode && itemUseAble)
+        {
             OnUse();
         }
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && GameManager.Instance.rootMode)
         {
             isSelect = false;
             if (isInit)
@@ -90,13 +100,15 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                 }
                 transform.position = mostNearInventory.transform.position;
                 gameObject.transform.GetChild(2).GetComponent<Image>().enabled = false;
-
+                InitInventory();
+                isValue = true;
             }
             else
             {
-                transform.localPosition = new Vector2(0, -300);
+                transform.localPosition = new Vector2(Random.Range(-800f,700f),Random.Range(-300f,-500f));
                 gameObject.transform.GetChild(3).GetComponent<Image>().enabled = false;
                 gameObject.transform.GetChild(3).position = transform.position;
+                isValue = false;
             }
         }
 
@@ -110,8 +122,31 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         }
     }
 
-    protected virtual void OnUse() {
+    private void OnUse()
+    {
+        if (PlayerManager.Instance.playerActionPoint - itemUseCount >= 0)
+        {
+            PlayerManager.Instance.playerActionPoint -= itemUseCount;
+            ItemEffect();
+        }
+    }
 
+    protected virtual void ItemEffect() {
+
+    }
+
+
+    protected virtual void UseCheck() {
+        if (PlayerManager.Instance.playerActionPoint - itemUseCount < 0){
+            itemUseAble = false;
+        }
+        if (!itemUseAble) {
+            transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(0.2f,0.2f,0.2f,255);
+
+        }
+        else {
+            transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1f,1f,1f,255);
+        }
     }
 
     protected delegate void SetAbleDel();
@@ -169,7 +204,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 
     protected virtual void SetAble()
     {
-        if (slotCount == ItemSlotCount)
+        if (slotCount == itemSlotCount)
         {
             gameObject.transform.GetChild(3).GetComponent<Image>().enabled = false;
             gameObject.transform.GetChild(3).position = transform.position;
@@ -189,7 +224,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     }
     protected virtual void SetAble(Vector2 pos_)
     {
-        if (slotCount == ItemSlotCount)
+        if (slotCount == itemSlotCount)
         {
             gameObject.transform.GetChild(3).GetComponent<Image>().enabled = false;
             gameObject.transform.GetChild(3).position = transform.position;
@@ -256,6 +291,26 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         RotateCheck();
     }
 
+    private void InitInventory()
+    {
+        for (int i = 0; i < itemSize.Length; i++)
+        {
+            if (itemSize[i].GetComponent<ItemSlot>().isActive)
+            {
+                itemSize[i].GetComponent<Image>().enabled = true;
+            }
+        }
+        
+    }
+
+    private void OutInventory()
+    {
+        for (int i = 0; i < itemSize.Length; i++)
+        {
+            itemSize[i].GetComponent<Image>().enabled = false;
+        }
+    }
+
     private void RotateCheck()
     {
         inInventory.Clear();
@@ -270,7 +325,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int x = index_X - 1; x <= index_X + 1; x++)
                     {
                         i++;
-                        if (x > InventoryManager.Instance.backpack2Array.GetUpperBound(1) || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0))
+                        if ( (0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }
@@ -296,7 +351,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int y = index_Y + 1; y >= index_Y - 1; y--)
                     {
                         i++;
-                        if (x > InventoryManager.Instance.backpack2Array.GetUpperBound(1) || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }
@@ -322,7 +377,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int x = index_X + 1; x >= index_X - 1; x--)
                     {
                         i++;
-                        if (x > InventoryManager.Instance.backpack2Array.GetUpperBound(1) || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }
@@ -348,7 +403,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int y = index_Y - 1; y <= index_Y + 1; y++)
                     {
                         i++;
-                        if (x > InventoryManager.Instance.backpack2Array.GetUpperBound(1) || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }

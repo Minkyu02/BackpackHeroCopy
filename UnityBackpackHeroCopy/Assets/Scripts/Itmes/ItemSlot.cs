@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemSlot : MonoBehaviour
 {
-    public bool isValue = false;
     public bool isActive = false;
     // Start is called before the first frame update
     void Start()

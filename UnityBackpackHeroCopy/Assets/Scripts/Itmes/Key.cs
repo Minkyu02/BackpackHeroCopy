@@ -8,8 +8,7 @@ public class Key : Item
     {
         itemSize = new GameObject[9];
         base.Start();
-        ItemSlotCount = 1;
-
+        itemSlotCount = 1;
         itemSize[4].GetComponent<ItemSlot>().isActive = true;
     }
 
