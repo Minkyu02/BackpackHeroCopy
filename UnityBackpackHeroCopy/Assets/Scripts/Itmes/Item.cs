@@ -105,7 +105,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
             }
             else
             {
-                transform.localPosition = new Vector2(Random.Range(-800f,700f),Random.Range(-300f,-500f));
+                transform.localPosition = new Vector2(Random.Range(-800f, 700f), Random.Range(-300f, -500f));
                 gameObject.transform.GetChild(3).GetComponent<Image>().enabled = false;
                 gameObject.transform.GetChild(3).position = transform.position;
                 isValue = false;
@@ -131,21 +131,30 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         }
     }
 
-    protected virtual void ItemEffect() {
+    protected virtual void ItemEffect()
+    {
 
     }
 
 
-    protected virtual void UseCheck() {
-        if (PlayerManager.Instance.playerActionPoint - itemUseCount < 0){
+    protected virtual void UseCheck()
+    {
+        if (PlayerManager.Instance.playerActionPoint - itemUseCount < 0)
+        {
             itemUseAble = false;
         }
-        if (!itemUseAble) {
-            transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(0.2f,0.2f,0.2f,255);
+        else
+        {
+            itemUseAble = true;
+        }
+        if (!itemUseAble)
+        {
+            transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f, 255);
 
         }
-        else {
-            transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1f,1f,1f,255);
+        else
+        {
+            transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 255);
         }
     }
 
@@ -159,7 +168,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         {
             if (InventoryManager.Instance.backpackArray[i].GetComponent<InventoryBg>().isActive)
             {
-                if (Vector2.Distance(transform.position, InventoryManager.Instance.backpackArray[i].transform.position) <= 0.5)
+                if (Vector2.Distance(transform.position, InventoryManager.Instance.backpackArray[i].transform.position) <= 0.5f)
                 {
                     inventoryBg = InventoryManager.Instance.backpackArray[i].GetComponent<InventoryBg>();
                     mostNearInventory = InventoryManager.Instance.backpackArray[i];
@@ -169,13 +178,13 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     }
                     else
                     {
-                        SlotCheck();
                         // for (int j = 0; j < itemActive.Count; j++)
                         // {
 
                         // }
                         // Debug.Log("false");
                         // Debug.Log($"전꺼 2차원 배열 : {mostNearInventory.GetComponent<InventoryBg>().index_X}, {mostNearInventory.GetComponent<InventoryBg>().index_Y}");
+                        SlotCheck();
                     }
                     if (setDel != null)
                     {
@@ -190,7 +199,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
             }
             else
             {
-                if (Vector2.Distance(transform.position, InventoryManager.Instance.backpackArray[i].transform.position) <= 0.5)
+                if (Vector2.Distance(transform.position, InventoryManager.Instance.backpackArray[i].transform.position) <= 0.5f)
                 {
                     gameObject.transform.GetChild(2).GetComponent<Image>().enabled = false;
                     gameObject.transform.GetChild(2).position = transform.position;
@@ -300,7 +309,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                 itemSize[i].GetComponent<Image>().enabled = true;
             }
         }
-        
+
     }
 
     private void OutInventory()
@@ -325,7 +334,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int x = index_X - 1; x <= index_X + 1; x++)
                     {
                         i++;
-                        if ( (0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }
@@ -351,7 +360,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int y = index_Y + 1; y >= index_Y - 1; y--)
                     {
                         i++;
-                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }
@@ -377,7 +386,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int x = index_X + 1; x >= index_X - 1; x--)
                     {
                         i++;
-                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }
@@ -403,7 +412,7 @@ public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
                     for (int y = index_Y - 1; y <= index_Y + 1; y++)
                     {
                         i++;
-                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y ||  y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
+                        if ((0 > x || x > InventoryManager.Instance.backpack2Array.GetUpperBound(1)) || (0 > y || y > InventoryManager.Instance.backpack2Array.GetUpperBound(0)))
                         {
                             continue;
                         }

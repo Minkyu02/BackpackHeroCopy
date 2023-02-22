@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -620,3 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: {fileID: 11400000, guid: bbaa891e6826bc94e8e8f6746352fc4c, type: 2}
+  maxHp: 0
+  nowHp: 0
+  attack: 0
+  exp: 0
+  isSelect: 0

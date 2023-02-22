@@ -7,7 +7,6 @@ public class Rat : Enemy
 
     protected override void Start()
     {
-        
         base.Start();
     }
 

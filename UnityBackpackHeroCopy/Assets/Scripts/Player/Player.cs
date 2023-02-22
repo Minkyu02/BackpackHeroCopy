@@ -12,11 +12,36 @@ public class Player : MonoBehaviour
     {
         playerAni = transform.GetChild(0).GetComponent<Animator>();
         actionPoint = actionGameObject.transform.GetChild(0).GetComponent<Text>();
-
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (PlayerManager.Instance.isAttacked)
+        {
+            playerAni.SetBool("attacked", true);
+        }
+        else
+        {
+            playerAni.SetBool("attacked", false);
+        }
+        BattleAni();
+        RootingAni();
+        actionPoint.text = $"{PlayerManager.Instance.playerActionPoint}";
+    }
+
+    private void BattleAni()
+    {
+        if (GameManager.Instance.battleMode)
+        {
+            playerAni.SetBool("battleMode", true);
+        }
+        else
+        {
+            playerAni.SetBool("battleMode", false);
+        }
+    }
+    private void RootingAni()
     {
         if (GameManager.Instance.rootMode)
         {
@@ -29,9 +54,9 @@ public class Player : MonoBehaviour
             {
                 playerAni.SetBool("isMap", false);
             }
-            actionPoint.text = $"{PlayerManager.Instance.playerActionPoint}";
         }
-        else {
+        else
+        {
             playerAni.SetBool("rootMode", false);
         }
     }

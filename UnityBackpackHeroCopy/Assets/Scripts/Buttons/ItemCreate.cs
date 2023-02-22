@@ -4,24 +4,33 @@ using UnityEngine;
 
 public class ItemCreate : MonoBehaviour
 {
-    public GameObject btnChooseFin = null;
     private List<GameObject> itemPrefebs = new List<GameObject>();
     public Transform parentsTrans = null;
     private GameObject item = null;
     // Start is called before the first frame update
     void Start()
     {
-
+        ButtonManager.Instance.btn_ItemCreate = this.gameObject;
+        // gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.isItemCreate)
+        {
+            ItemSpawn();
+        }
+    }
 
+    public void ItemSpawn()
+    {
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void Btn_CreateItem()
     {
+        GameManager.Instance.isItemCreate = false;
         for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length; i++)
         {
             itemPrefebs.Add(Resources.LoadAll<GameObject>("Prefebs/Item/Items")[i]);
@@ -32,7 +41,8 @@ public class ItemCreate : MonoBehaviour
             item.transform.SetParent(parentsTrans, false);
             item.transform.localPosition = new Vector2(Random.Range(-800f, 700f), Random.Range(-300f, -500f));
         }
-        transform.localScale = new Vector3(0.001f,0.001f,0.001f);
-        btnChooseFin.transform.localScale = new Vector3(1f,1f,1f);
+        gameObject.SetActive(false);
+        ButtonManager.Instance.btn_ChooseFin.SetActive(true);
+
     }
 }

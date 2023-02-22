@@ -8,7 +8,8 @@ public class ChooseFin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ButtonManager.Instance.btn_ChooseFin = this.gameObject;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,7 +31,6 @@ public class ChooseFin : MonoBehaviour
                 Destroy(items.transform.GetChild(i).gameObject);
             }
         }
-        transform.localScale = transform.localScale = new Vector3(0.001f,0.001f,0.001f);
-        GameManager.Instance.IdleMode();
+        gameObject.SetActive(false);
     }
 }

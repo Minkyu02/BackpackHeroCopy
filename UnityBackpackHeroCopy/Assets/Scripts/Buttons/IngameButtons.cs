@@ -16,6 +16,8 @@ public class IngameButtons : MonoBehaviour
     void Start()
     {
         image = gameObject.transform.GetChild(0).GetComponent<Image>();
+        ButtonManager.Instance.btn_SwapTop = this.gameObject; 
+        
     }
 
     // Update is called once per frame

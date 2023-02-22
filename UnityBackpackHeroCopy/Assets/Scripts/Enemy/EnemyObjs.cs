@@ -8,7 +8,7 @@ public class EnemyObjs : ScriptableObject {
     public string eName;
     public int eAttack;
     public int eHp;
-
+    public int eExp;
+    public int eHealRate;
     
-
 }

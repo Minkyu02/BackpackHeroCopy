@@ -16,3 +16,4 @@ MonoBehaviour:
   eName: Rat
   eAttack: 5
   eHp: 40
+  eExp: 5

@@ -36,6 +36,27 @@ public class Sword : Item
     protected override void ItemEffect()
     {
         base.ItemEffect();
-        Debug.Log("7데미지");
+        PlayerManager.Instance.isAttacked = false;
+        StartCoroutine(DelayItemEffect());        
+    }
+
+    IEnumerator DelayItemEffect() {
+        yield return null;
+        PlayerManager.Instance.isAttacked = true;
+        int unSelectedEnemy = 0;
+        for (int i = 0; i < BattleManager.Instance.enemyList.Count; i++)
+        {
+            if (BattleManager.Instance.enemyList[i].GetComponent<Enemy>().isSelect) {
+                BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp -= 7;
+                Debug.Log(BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp);
+            }
+            else {
+                unSelectedEnemy++;
+            }
+        }
+        if (unSelectedEnemy == BattleManager.Instance.enemyList.Count) {
+            BattleManager.Instance.enemyList[0].GetComponent<Enemy>().nowHp -= 7;
+            Debug.Log(BattleManager.Instance.enemyList[0].GetComponent<Enemy>().nowHp);
+        }
     }
 }
