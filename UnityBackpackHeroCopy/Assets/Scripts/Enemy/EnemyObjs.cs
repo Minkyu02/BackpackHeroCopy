@@ -10,5 +10,5 @@ public class EnemyObjs : ScriptableObject {
     public int eHp;
     public int eExp;
     public int eHealRate;
-    
+    public int eBlock;
 }

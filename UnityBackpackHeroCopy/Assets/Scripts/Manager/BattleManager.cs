@@ -48,9 +48,13 @@ public class BattleManager : SingleTonBase<BattleManager>
     {
         for (int i = 0; i < enemyList.Count; i++) {
             enemyList[i].GetComponent<Enemy>().Battle();
-            Debug.Log("??");
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.25f);
+            enemyList[i].GetComponent<Enemy>().isAttackFin = false;
+            yield return new WaitForSeconds(0.25f);
+            enemyList[i].GetComponent<Enemy>().isAttack = false;
+            enemyList[i].GetComponent<Enemy>().isAttackFin = true;
         }
         isPlayerTurn = true;
+        PlayerManager.Instance.playerActionPoint = 3;
     }
 }

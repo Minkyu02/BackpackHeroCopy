@@ -25,7 +25,6 @@ public class EndTurn : MonoBehaviour
         {
             BattleManager.Instance.isPlayerTurn = false;
             BattleManager.Instance.EnemyBattle();
-            PlayerManager.Instance.playerActionPoint = 3;
         }
     }
 }

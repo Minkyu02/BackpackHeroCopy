@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     {
         playerAni = transform.GetChild(0).GetComponent<Animator>();
         actionPoint = actionGameObject.transform.GetChild(0).GetComponent<Text>();
+        PlayerManager.Instance.playerPos = this.transform;
     }
 
     // Update is called once per frame

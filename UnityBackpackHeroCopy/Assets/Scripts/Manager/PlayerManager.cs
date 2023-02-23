@@ -15,6 +15,7 @@ public class PlayerManager : SingleTonBase<PlayerManager>
     public int playerNowHp = 40;
     public bool isLevelUp = false;
     public bool isAttacked = false;
+    public Transform playerPos = null;
     protected override void Awake()
     {
         base.Awake();
@@ -44,16 +45,16 @@ public class PlayerManager : SingleTonBase<PlayerManager>
         {
             isLevelUp = true;
             ButtonManager.Instance.btn_BagUpgrade.SetActive(true);
-            GameManager.Instance.RootMode();
+            PlayerManager.Instance.playerActionPoint = 3;
+            GameManager.Instance.IdleMode();
             // Test.BroadcastMessage("LevelUpTest", SendMessageOptions.DontRequireReceiver);
             // 게임매니저의 배틀모드 비활성화, 루트모드 활성화
             // 레벨업 버튼 활성화
         }
         else //레벨업 안했을 경우 
         {
-            GameManager.Instance.isItemCreate = true;
-            GameManager.Instance.RootMode();
-            // 배틀모드 비활성화, idle모드 활성화
+            ButtonManager.Instance.btn_ItemCreate.SetActive(true);
+            GameManager.Instance.IdleMode();
         }
     }
 

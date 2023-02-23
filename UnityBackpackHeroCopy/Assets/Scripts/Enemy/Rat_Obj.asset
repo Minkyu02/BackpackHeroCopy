@@ -17,3 +17,5 @@ MonoBehaviour:
   eAttack: 5
   eHp: 40
   eExp: 5
+  eHealRate: 5
+  eBlock: 14

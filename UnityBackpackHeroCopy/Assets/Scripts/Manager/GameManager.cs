@@ -6,7 +6,8 @@ public class GameManager : SingleTonBase<GameManager>
 {
 
     public int upgradeCount = 0;
-    public bool isItemCreate = false;
+
+
     public bool rootMode = false;
     public bool battleMode = false;
     public bool idleMode = false;

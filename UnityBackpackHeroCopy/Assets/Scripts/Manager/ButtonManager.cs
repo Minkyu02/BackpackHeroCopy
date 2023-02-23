@@ -9,7 +9,6 @@ public class ButtonManager : SingleTonBase<ButtonManager>
     public GameObject btn_BagUpgrade = null;
     public GameObject btn_BagUpgradeFin = null;
     public GameObject btn_ChooseFin = null;
-    public GameObject btn_CreateEnemy = null;
     public GameObject btn_EndTurn = null;
     public GameObject btn_SwapTop = null;
     public GameObject btn_ItemCreate = null;

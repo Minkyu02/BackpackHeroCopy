@@ -33,6 +33,6 @@ public class BagUpgradeFin : MonoBehaviour
         backpackUpgrade.isLevelup = false;
         backpackUpgrade.NormalMode();
         gameObject.SetActive(false);
-        GameManager.Instance.isItemCreate = true;
+        ButtonManager.Instance.btn_ItemCreate.SetActive(true);
     }
 }

@@ -11,30 +11,24 @@ public class ItemCreate : MonoBehaviour
     void Start()
     {
         ButtonManager.Instance.btn_ItemCreate = this.gameObject;
-        // gameObject.SetActive(false);
+        for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length; i++)
+        {
+            itemPrefebs.Add(Resources.LoadAll<GameObject>("Prefebs/Item/Items")[i]);
+        }
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.isItemCreate)
-        {
-            ItemSpawn();
-        }
+
     }
 
-    public void ItemSpawn()
-    {
-        transform.localScale = new Vector3(1f, 1f, 1f);
-    }
 
     public void Btn_CreateItem()
     {
-        GameManager.Instance.isItemCreate = false;
-        for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length; i++)
-        {
-            itemPrefebs.Add(Resources.LoadAll<GameObject>("Prefebs/Item/Items")[i]);
-        }
+        GameManager.Instance.RootMode();
+
         for (int i = 0; i < Random.Range(3, 7); i++)
         {
             item = Instantiate(itemPrefebs[Random.Range(0, Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length)]);

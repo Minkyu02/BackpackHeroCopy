@@ -37,26 +37,51 @@ public class Sword : Item
     {
         base.ItemEffect();
         PlayerManager.Instance.isAttacked = false;
-        StartCoroutine(DelayItemEffect());        
+        StartCoroutine(DelayItemEffect());
     }
 
-    IEnumerator DelayItemEffect() {
+    IEnumerator DelayItemEffect()
+    {
         yield return null;
         PlayerManager.Instance.isAttacked = true;
         int unSelectedEnemy = 0;
         for (int i = 0; i < BattleManager.Instance.enemyList.Count; i++)
         {
-            if (BattleManager.Instance.enemyList[i].GetComponent<Enemy>().isSelect) {
-                BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp -= 7;
+            if (BattleManager.Instance.enemyList[i].GetComponent<Enemy>().isSelect)
+            {
+                if (BattleManager.Instance.enemyList[i].GetComponent<Enemy>().shieldRate > 0)
+                {
+                    BattleManager.Instance.enemyList[i].GetComponent<Enemy>().shieldRate -= 7;
+                    if (BattleManager.Instance.enemyList[i].GetComponent<Enemy>().shieldRate < 0)
+                    {
+                        BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp += BattleManager.Instance.enemyList[i].GetComponent<Enemy>().shieldRate;
+                    }
+                }
+                else
+                {
+                    BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp -= 7;
+                }
                 Debug.Log(BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp);
             }
-            else {
+            else
+            {
                 unSelectedEnemy++;
             }
         }
-        if (unSelectedEnemy == BattleManager.Instance.enemyList.Count) {
-            BattleManager.Instance.enemyList[0].GetComponent<Enemy>().nowHp -= 7;
-            Debug.Log(BattleManager.Instance.enemyList[0].GetComponent<Enemy>().nowHp);
+        if (unSelectedEnemy == BattleManager.Instance.enemyList.Count)
+        {
+            if (BattleManager.Instance.enemyList[0].GetComponent<Enemy>().shieldRate > 0)
+            {
+                BattleManager.Instance.enemyList[0].GetComponent<Enemy>().shieldRate -= 7;
+                if (BattleManager.Instance.enemyList[0].GetComponent<Enemy>().shieldRate < 0)
+                {
+                    BattleManager.Instance.enemyList[0].GetComponent<Enemy>().nowHp += BattleManager.Instance.enemyList[0].GetComponent<Enemy>().shieldRate;
+                }
+            }
+            else
+            {
+                BattleManager.Instance.enemyList[0].GetComponent<Enemy>().nowHp -= 7;
+            }
         }
     }
 }
