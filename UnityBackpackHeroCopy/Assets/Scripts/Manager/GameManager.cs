@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GameManager : SingleTonBase<GameManager>
 {
-
+    public GameObject playerTurntext = null;
     public int upgradeCount = 0;
-
-
     public bool rootMode = false;
     public bool battleMode = false;
     public bool idleMode = false;
+
     protected override void Awake()
     {
         base.Awake();

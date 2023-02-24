@@ -41,7 +41,6 @@ public class Chest : MonoBehaviour, IPointerClickHandler
             GameManager.Instance.RootMode();
             isOpen = true;
             ChestImg.sprite = openChestImg;
-            Debug.Log("?");
             for (int i = 0; i < Random.Range(3, 7); i++)
             {
                 item = Instantiate(itemPrefebs[Random.Range(0, Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length)]);

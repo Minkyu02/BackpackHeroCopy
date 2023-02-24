@@ -6,13 +6,18 @@ public class Player : MonoBehaviour
 {
     public GameObject actionGameObject = null;
     private Animator playerAni = null;
+    private Image playerHeart = null;
+    private Text playerStatusText = null;
     private Text actionPoint = null;
+    public Sprite[] statusImg = null;
     // Start is called before the first frame update
     void Start()
     {
         playerAni = transform.GetChild(0).GetComponent<Animator>();
+        playerStatusText = transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>();
         actionPoint = actionGameObject.transform.GetChild(0).GetComponent<Text>();
-        PlayerManager.Instance.playerPos = this.transform;
+        playerHeart = transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<Image>();
+        PlayerManager.Instance.playerPos = this.transform.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -26,11 +31,43 @@ public class Player : MonoBehaviour
         {
             playerAni.SetBool("attacked", false);
         }
-        BattleAni();
-        RootingAni();
+        PlayerAnimation();
+        StatusCheck();
         actionPoint.text = $"{PlayerManager.Instance.playerActionPoint}";
     }
+    private void StatusCheck()
+    {
+        if (PlayerManager.Instance.playerShieldRate > 0)
+        {
+            playerHeart.sprite = statusImg[1];
+            playerStatusText.gameObject.SetActive(true);
+            playerStatusText.text = $"{PlayerManager.Instance.playerShieldRate}";
+        }
+        else
+        {
+            playerHeart.sprite = statusImg[0];
+            playerStatusText.gameObject.SetActive(false);
+        }
+    }
 
+    private void PlayerAnimation()
+    {
+        BattleAni();
+        RootingAni();
+        WalkAni();
+    }
+
+    private void WalkAni()
+    {
+        if (PlayerManager.Instance.isWalk)
+        {
+            playerAni.SetBool("isWalk", true);
+        }
+        else
+        {
+            playerAni.SetBool("isWalk", false);
+        }
+    }
     private void BattleAni()
     {
         if (GameManager.Instance.battleMode)

@@ -6,7 +6,7 @@ public class TextBase : MonoBehaviour
 {
     protected Text text = null;
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         text = GetComponent<Text>();
     }

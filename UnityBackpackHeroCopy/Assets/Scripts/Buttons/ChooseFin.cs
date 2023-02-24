@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChooseFin : MonoBehaviour
 {
     public GameObject items = null;
+    public GameObject chest = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,7 @@ public class ChooseFin : MonoBehaviour
                 Destroy(items.transform.GetChild(i).gameObject);
             }
         }
+        chest.SetActive(false);
         gameObject.SetActive(false);
     }
 }

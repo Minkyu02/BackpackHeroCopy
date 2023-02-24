@@ -7,10 +7,10 @@ public class PlayerHp : TextBase
 {
     private Image hpBar = null;
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
         hpBar = transform.parent.GetComponent<Image>();
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame

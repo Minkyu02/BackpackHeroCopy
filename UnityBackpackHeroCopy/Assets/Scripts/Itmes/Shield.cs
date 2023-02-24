@@ -9,7 +9,8 @@ public class Shield : Item
     {
         base.Start();
         itemSlotCount = 4;
-        setPos = new Vector2(50,50);
+        itemUseCount = 1;
+        setPos = new Vector2(50, 50);
 
         itemSize[1].GetComponent<ItemSlot>().isActive = true;
         itemSize[2].GetComponent<ItemSlot>().isActive = true;
@@ -23,7 +24,8 @@ public class Shield : Item
         base.Update();
     }
 
-    protected override void DistancePockets() {
+    protected override void DistancePockets()
+    {
         this.setDelPos = this.SetAble;
         base.DistancePockets();
     }
@@ -31,6 +33,11 @@ public class Shield : Item
     protected override void SetAble(Vector2 pos_)
     {
         base.SetAble(pos_);
-        
+    }
+
+    protected override void ItemEffect()
+    {
+        base.ItemEffect();
+        PlayerManager.Instance.playerShieldRate = 10;
     }
 }

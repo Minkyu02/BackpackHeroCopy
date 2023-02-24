@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
     public bool isSelect = false;
     public bool isAttack = false;
     public bool isAttackFin = true;
+    public bool isDef = false;
+    public bool isDefFin = true;
     public int enemyNext = 0; // 0 공격 1 방어 2 회복
     public Sprite[] enemyNowState = new Sprite[3]; // 0 하트 1 방패 2 힐
     private Image enemyNowStateImg = null;
@@ -28,7 +30,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
     private Text enemyBlockText = null;
     protected virtual void Start()
     {
-        enemyNowStateImg =  transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<Image>();
+        enemyNowStateImg = transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<Image>();
         enemyBlockText = transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>();
         enemyAtkText = transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>();
         enemyDefText = transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>();
@@ -57,12 +59,15 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
             transform.GetChild(0).gameObject.SetActive(false);
         }
         AttackAni();
-        if (shieldRate > 0) {
+        DefAni();
+        if (shieldRate > 0)
+        {
             enemyNowStateImg.sprite = enemyNowState[1];
             enemyBlockText.gameObject.SetActive(true);
             enemyBlockText.text = $"{shieldRate}";
         }
-        else {
+        else
+        {
             enemyNowStateImg.sprite = enemyNowState[0];
             enemyBlockText.gameObject.SetActive(false);
         }
@@ -80,10 +85,23 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
             if (transform.GetChild(1).transform.localPosition.x > -0.5f || transform.GetChild(1).transform.localPosition.x > 0.5f)
             {
                 transform.GetChild(1).transform.localPosition = Vector2.zero;
-                Debug.Log("??");
             }
         }
     }
+
+
+    private void DefAni()
+    {
+        if (isDef && isDefFin)
+        {
+            transform.GetChild(1).transform.localScale = new Vector3(transform.GetChild(1).transform.localScale.x, transform.GetChild(1).transform.localScale.y + Time.deltaTime, transform.GetChild(1).transform.localScale.z);
+        }
+        else if (isDef && !isDefFin)
+        {
+            transform.GetChild(1).transform.localScale = new Vector3(transform.GetChild(1).transform.localScale.x, transform.GetChild(1).transform.localScale.y - Time.deltaTime, transform.GetChild(1).transform.localScale.z);
+        }
+    }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -108,10 +126,22 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
         }
     }
 
+
     protected void Attack()
     {
         isAttack = true;
-        PlayerManager.Instance.playerNowHp -= attack;
+        if (PlayerManager.Instance.playerShieldRate > 0)
+        {
+            PlayerManager.Instance.playerShieldRate -= attack;
+            if (PlayerManager.Instance.playerShieldRate < 0)
+            {
+                PlayerManager.Instance.playerNowHp += PlayerManager.Instance.playerShieldRate;
+            }
+        }
+        else
+        {
+           PlayerManager.Instance.playerNowHp -= attack;
+        }
     }
 
     protected void Heal()
@@ -125,6 +155,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
 
     protected void Defence()
     {
+        isDef = true;
         shieldRate = block;
     }
 
@@ -135,21 +166,21 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
         {
             case 0:
                 Attack();
+                transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
                 break;
             case 1:
                 Defence();
+                transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
                 break;
             case 2:
                 Heal();
+                transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
                 break;
         }
-        NextBehavior();
     }
-    protected void NextBehavior()
+    public void NextBehavior()
     {
-        transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
-        transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(1).transform.localScale = new Vector3(1f, 1f, 1f);
         enemyNext = Random.Range(0, 3);
         switch (enemyNext)
         {

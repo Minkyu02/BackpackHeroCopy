@@ -61,7 +61,6 @@ public class Sword : Item
                 {
                     BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp -= 7;
                 }
-                Debug.Log(BattleManager.Instance.enemyList[i].GetComponent<Enemy>().nowHp);
             }
             else
             {

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b19846835d88144b08d379904cdb9e, type: 3}
+  m_Name: Bee_Obj
+  m_EditorClassIdentifier: 
+  eImage: {fileID: 21300000, guid: 3e410e65c04680f48af6e6abaacf5cb0, type: 3}
+  eName: Bee
+  eAttack: 7
+  eHp: 30
+  eExp: 7
+  eHealRate: 6
+  eBlock: 10

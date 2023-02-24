@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class PlayerManager : SingleTonBase<PlayerManager>
 {
-    public bool isMap = false;
     public int playerActionPoint = 3;
     public int playerLevel = 0;
     public int playerExp = 0;
     public int playerNextExp = 10;
     public int PlayerFloor = 0;
-    public bool isPlayerTurn = true;
     public int playerMaxHp = 40;
     public int playerNowHp = 40;
+    public int playerShieldRate = 0;
+    public bool isMap = false;
+    public bool isPlayerTurn = true;
     public bool isLevelUp = false;
     public bool isAttacked = false;
-    public Transform playerPos = null;
+    public bool isWalk = false;
+    public RectTransform mapPlayerPos = null;
+    public RectTransform targetPos = null;
+    public RectTransform playerPos = null;
     protected override void Awake()
     {
         base.Awake();
