@@ -38,6 +38,6 @@ public class Shield : Item
     protected override void ItemEffect()
     {
         base.ItemEffect();
-        PlayerManager.Instance.playerShieldRate = 10;
+        PlayerManager.Instance.playerShieldRate += 7;
     }
 }

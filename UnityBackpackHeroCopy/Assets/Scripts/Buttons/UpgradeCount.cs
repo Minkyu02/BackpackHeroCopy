@@ -16,11 +16,12 @@ public class UpgradeCount : MonoBehaviour
     {
         if (GameManager.Instance.upgradeCount == 0)
         {
-            upgradeCount.text = "No more Upgrade";
+            ButtonManager.Instance.btn_BagUpgradeFin.SetActive(true);
+            upgradeCount.text = $"CHOOSE {GameManager.Instance.upgradeCount} SPACES";
         }
         else
         {
-            upgradeCount.text = $"{GameManager.Instance.upgradeCount} Select";
+            upgradeCount.text = $"CHOOSE {GameManager.Instance.upgradeCount} SPACES";
 
         }
     }

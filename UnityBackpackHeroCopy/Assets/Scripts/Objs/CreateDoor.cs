@@ -25,7 +25,7 @@ public class CreateDoor : Road
 
     protected override void AnyEvent()
     {
-        base.AnyEvent();
+        isClickEvent = false;
         GameManager.Instance.nextStageDoor.SetActive(true);
         GameManager.Instance.playMaps[mapIndex].GetComponent<Road>().isHaveEvent = false;
         Destroy(gameObject);

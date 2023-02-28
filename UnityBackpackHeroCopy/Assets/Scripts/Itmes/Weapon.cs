@@ -68,14 +68,14 @@ public class Weapon : Item
     {
         base.ItemEffect();
         useAbleCount--;
-        PlayerManager.Instance.isAttacked = false;
+        PlayerManager.Instance.isAttack = false;
         StartCoroutine(DelayItemEffect());
     }
 
     IEnumerator DelayItemEffect()
     {
         yield return null;
-        PlayerManager.Instance.isAttacked = true;
+        PlayerManager.Instance.isAttack = true;
         for (int i = 0; i < BattleManager.Instance.enemyList.Count; i++)
         {
             if (BattleManager.Instance.enemyList[i].GetComponent<Enemy>().shieldRate > 0)

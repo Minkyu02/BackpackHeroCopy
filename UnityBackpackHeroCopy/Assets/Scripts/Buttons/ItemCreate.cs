@@ -36,6 +36,7 @@ public class ItemCreate : MonoBehaviour
             item.transform.localPosition = new Vector2(Random.Range(-800f, 700f), Random.Range(-300f, -500f));
         }
         gameObject.SetActive(false);
+        PlayerManager.Instance.isWin = false;
         ButtonManager.Instance.btn_ChooseFin.SetActive(true);
 
     }

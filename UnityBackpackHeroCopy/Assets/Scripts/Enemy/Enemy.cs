@@ -89,7 +89,6 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
     private void DefAni()
     {
         if (isDef && isDefFin)
@@ -130,6 +129,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
     protected void Attack()
     {
         isAttack = true;
+        PlayerManager.Instance.isAttacked = true;
         if (PlayerManager.Instance.playerShieldRate > 0)
         {
             PlayerManager.Instance.playerShieldRate -= attack;
@@ -140,7 +140,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-           PlayerManager.Instance.playerNowHp -= attack;
+            PlayerManager.Instance.playerNowHp -= attack;
         }
     }
 

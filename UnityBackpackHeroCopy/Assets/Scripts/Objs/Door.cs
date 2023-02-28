@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Door : MonoBehaviour, IPointerClickHandler
 {
@@ -20,7 +21,11 @@ public class Door : MonoBehaviour, IPointerClickHandler
         {
             if (PlayerManager.Instance.playerPos.position.x >= transform.position.x)
             {
-                isNextRoom = false;
+                if (isNextRoom)
+                {
+                    StartCoroutine(Disappear());
+                    isNextRoom = false;
+                }
             }
             else
             {
@@ -29,6 +34,16 @@ public class Door : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    IEnumerator Disappear()
+    {
+        while (PlayerManager.Instance.playerPos.transform.GetChild(0).GetComponent<Image>().color.a > 0)
+        {
+            float imagColor = PlayerManager.Instance.playerPos.transform.GetChild(0).GetComponent<Image>().color.a;
+            imagColor -= 0.01f;
+            PlayerManager.Instance.playerPos.transform.GetChild(0).GetComponent<Image>().color = new Color(1f,1f,1f,imagColor);
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {

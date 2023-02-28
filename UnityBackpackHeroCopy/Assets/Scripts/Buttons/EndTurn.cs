@@ -24,6 +24,7 @@ public class EndTurn : MonoBehaviour
         if (BattleManager.Instance.isPlayerTurn)
         {
             BattleManager.Instance.isPlayerTurn = false;
+            gameObject.SetActive(false);
             BattleManager.Instance.EnemyBattle();
         }
     }

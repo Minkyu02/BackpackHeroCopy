@@ -15,7 +15,7 @@ MonoBehaviour:
   eImage: {fileID: 21300000, guid: 105e6811eaf25db48b97c2eecdbd8af6, type: 3}
   eName: Rat
   eAttack: 5
-  eHp: 40
-  eExp: 5
+  eHp: 45
+  eExp: 6
   eHealRate: 5
-  eBlock: 14
+  eBlock: 16

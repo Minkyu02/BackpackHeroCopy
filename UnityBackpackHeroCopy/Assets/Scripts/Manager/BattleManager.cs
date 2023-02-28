@@ -10,6 +10,13 @@ public class BattleManager : SingleTonBase<BattleManager>
     public bool isPlayerTurn = true;
     public bool isRestTime = false;
 
+    public void Init()
+    {
+        enemyList = new List<GameObject>();
+        isBattleEnd = true;
+        isPlayerTurn = true;
+        isRestTime = false;
+    }
 
     protected override void Awake()
     {
@@ -32,6 +39,7 @@ public class BattleManager : SingleTonBase<BattleManager>
         {
             isBattleEnd = true;
             isRestTime = true;
+            PlayerManager.Instance.isWin = true;
             PlayerManager.Instance.LevelUpCheck();
         }
     }

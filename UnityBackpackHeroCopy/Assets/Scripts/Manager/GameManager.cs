@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : SingleTonBase<GameManager>
 {
+    public GameObject dieScene = null;
     public GameObject nextStageDoor = null;
     public GameObject playerTurntext = null;
     public GameObject chest = null;
@@ -13,6 +14,18 @@ public class GameManager : SingleTonBase<GameManager>
     public bool battleMode = false;
     public bool idleMode = false;
 
+    public void Init()
+    {
+        dieScene = null;
+        nextStageDoor = null;
+        playerTurntext = null;
+        chest = null;
+        playMaps = new List<Transform>();
+        upgradeCount = 0;
+        rootMode = true;
+        battleMode = false;
+        idleMode = false;
+    }
     protected override void Awake()
     {
         base.Awake();

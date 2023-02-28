@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eImage: {fileID: 21300000, guid: 3e410e65c04680f48af6e6abaacf5cb0, type: 3}
   eName: Bee
-  eAttack: 7
-  eHp: 30
-  eExp: 7
+  eAttack: 9
+  eHp: 16
+  eExp: 4
   eHealRate: 6
   eBlock: 10

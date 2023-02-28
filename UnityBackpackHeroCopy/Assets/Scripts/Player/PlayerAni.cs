@@ -17,6 +17,10 @@ public class PlayerAni : MonoBehaviour
     }
 
     public void FinAttack() {
+        PlayerManager.Instance.isAttack = false;
+    }
+
+    public void FinAttacked() {
         PlayerManager.Instance.isAttacked = false;
     }
 }

@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerManager.Instance.isAttacked)
+        if (PlayerManager.Instance.isAttack)
         {
             playerAni.SetBool("attacked", true);
         }
@@ -56,8 +56,45 @@ public class Player : MonoBehaviour
         BattleAni();
         RootingAni();
         WalkAni();
+        AttackedAni();
+        UseItemAni();
+        WinBattle();
     }
 
+    private void WinBattle()
+    {
+        if (PlayerManager.Instance.isWin)
+        {
+            playerAni.SetBool("isBattleWin", true);
+        }
+        else
+        {
+            playerAni.SetBool("isBattleWin", false);
+        }
+    }
+    private void UseItemAni()
+    {
+        if (PlayerManager.Instance.isUseItem)
+        {
+            playerAni.SetBool("isUseItem", true);
+        }
+        else
+        {
+            playerAni.SetBool("isUseItem", false);
+        }
+    }
+
+    private void AttackedAni()
+    {
+        if (PlayerManager.Instance.isAttacked)
+        {
+            playerAni.SetBool("isAttakced", true);
+        }
+        else
+        {
+            playerAni.SetBool("isAttakced", false);
+        }
+    }
     private void WalkAni()
     {
         if (PlayerManager.Instance.isWalk)

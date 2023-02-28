@@ -36,14 +36,14 @@ public class Sword : Item
     protected override void ItemEffect()
     {
         base.ItemEffect();
-        PlayerManager.Instance.isAttacked = false;
+        PlayerManager.Instance.isAttack = false;
         StartCoroutine(DelayItemEffect());
     }
 
     IEnumerator DelayItemEffect()
     {
         yield return null;
-        PlayerManager.Instance.isAttacked = true;
+        PlayerManager.Instance.isAttack = true;
         int unSelectedEnemy = 0;
         for (int i = 0; i < BattleManager.Instance.enemyList.Count; i++)
         {

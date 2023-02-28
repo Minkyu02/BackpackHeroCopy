@@ -54,15 +54,28 @@ public class Food : Item
 
     protected override void ItemEffect()
     {
-        base.ItemEffect();
-        itemLeft --;
-        PlayerManager.Instance.playerActionPoint ++;
+        if (PlayerManager.Instance.delay == null)
+        {
+            PlayerManager.Instance.isUseItem = true;
+            base.ItemEffect();
+            itemLeft--;
+            PlayerManager.Instance.playerActionPoint++;
+        }
+        else
+        {
+            StopCoroutine(PlayerManager.Instance.MotionDelay());
+            PlayerManager.Instance.delay = null;
+            PlayerManager.Instance.isUseItem = false;
+            ItemEffect();
+        }
     }
 
     protected override void UseCheck()
     {
-        if (itemLeft <= 0) {
-            for (int i = 0 ; i < inInventory.Count; i++) {
+        if (itemLeft <= 0)
+        {
+            for (int i = 0; i < inInventory.Count; i++)
+            {
                 inInventory[i].GetComponent<InventoryBg>().isHave = false;
             }
             Destroy(gameObject);

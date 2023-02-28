@@ -37,6 +37,7 @@ public class TextPlayerTurn : TextBase
         BattleManager.Instance.isPlayerTurn = true;
         BattleManager.Instance.isRestTime = false;
         gameObject.SetActive(false);
+        ButtonManager.Instance.btn_EndTurn.SetActive(true);
     }
 
 }

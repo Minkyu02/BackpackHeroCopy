@@ -13,6 +13,14 @@ public class InventoryManager : SingleTonBase<InventoryManager>
     public GameObject[,] backpack2Array;
     public InventoryUpgrade backPack = null;
     // Start is called before the first frame update
+
+    public void Init()
+    {
+        expendLeft = 0;
+        expendRight = 0;
+        expendUp = 0;
+        expendDown = 0;
+    }
     protected override void Awake()
     {
         base.Awake();

@@ -10,6 +10,7 @@ public class CreateMaps : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.playMaps = new List<Transform>();
         for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Event").Length; i++)
         {
             eventPrefebs.Add(Resources.LoadAll<GameObject>("Prefebs/Event")[i]);
@@ -24,9 +25,15 @@ public class CreateMaps : MonoBehaviour
         nextDoorPrefebs = Resources.Load<GameObject>("Prefebs/Door/DoorEvent");
         GameObject nextDoor = Instantiate(nextDoorPrefebs);
         nextDoor.transform.SetParent(eventParents.transform, false);
-        nextDoor.transform.position = GameManager.Instance.playMaps[transform.childCount-1].position;
-        nextDoor.GetComponent<Road>().mapIndex = transform.childCount-1;
-        GameManager.Instance.playMaps[transform.childCount-1].GetComponent<Road>().isHaveEvent = true;
+        nextDoor.transform.position = GameManager.Instance.playMaps[transform.childCount - 1].position;
+        nextDoor.GetComponent<Road>().mapIndex = transform.childCount - 1;
+        GameManager.Instance.playMaps[transform.childCount - 1].GetComponent<Road>().isHaveEvent = true;
+
+        GameObject chestEvent = Instantiate(eventPrefebs[0]);
+        chestEvent.transform.SetParent(eventParents.transform, false);
+        chestEvent.transform.position = GameManager.Instance.playMaps[1].position;
+        chestEvent.GetComponent<Road>().mapIndex = 1;
+        GameManager.Instance.playMaps[1].GetComponent<Road>().isHaveEvent = true;
 
         for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Event").Length; i++)
         {
