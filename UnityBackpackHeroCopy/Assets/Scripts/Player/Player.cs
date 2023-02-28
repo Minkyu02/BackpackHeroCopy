@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         PlayerManager.Instance.playerPos = this.transform.GetComponent<RectTransform>();
     }
 
+
     // Update is called once per frame
     void Update()
     {

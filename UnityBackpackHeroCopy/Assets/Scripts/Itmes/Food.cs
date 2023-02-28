@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Food : Item
 {
+    private int itemLeft = 2;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -49,5 +50,22 @@ public class Food : Item
     private void SwapVector(ref Vector2 pos_)
     {
         pos_ = new Vector2(pos_.y, pos_.x);
+    }
+
+    protected override void ItemEffect()
+    {
+        base.ItemEffect();
+        itemLeft --;
+        PlayerManager.Instance.playerActionPoint ++;
+    }
+
+    protected override void UseCheck()
+    {
+        if (itemLeft <= 0) {
+            for (int i = 0 ; i < inInventory.Count; i++) {
+                inInventory[i].GetComponent<InventoryBg>().isHave = false;
+            }
+            Destroy(gameObject);
+        }
     }
 }

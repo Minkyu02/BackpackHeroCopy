@@ -43,6 +43,7 @@ public class CreatEnemy : Road
             BattleManager.Instance.isBattleEnd = false;
             ButtonManager.Instance.btn_EndTurn.SetActive(true);
         }
+        GameManager.Instance.playMaps[mapIndex].GetComponent<Road>().isHaveEvent = false;
         Destroy(gameObject);
 
     }

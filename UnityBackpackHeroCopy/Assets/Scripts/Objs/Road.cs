@@ -7,6 +7,9 @@ public class Road : MonoBehaviour, IPointerClickHandler
 {
     protected bool isClickEvent = false;
     protected bool isEvent = false;
+    public bool isHaveEvent = false;
+    public int mapIndex = 0;
+    protected bool goAble = true;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -24,9 +27,20 @@ public class Road : MonoBehaviour, IPointerClickHandler
     {
         if (!PlayerManager.Instance.isWalk && GameManager.Instance.rootMode)
         {
-            PlayerManager.Instance.targetPos = GetComponent<RectTransform>();
-            PlayerManager.Instance.isWalk = true;
-            isClickEvent = true;
+            PlayerManager.Instance.targetPos = mapIndex;
+            for (int i = PlayerManager.Instance.mapPlayerPos + 1; i < PlayerManager.Instance.targetPos; i++)
+            {
+                if (GameManager.Instance.playMaps[i].GetComponent<Road>().isHaveEvent)
+                {
+                    goAble = false;
+                    break;
+                }
+            }
+            if (goAble)
+            {
+                PlayerManager.Instance.isWalk = true;
+                isClickEvent = true;
+            }
             // StartCoroutine(WalkDelay());
         }
     }
@@ -48,8 +62,7 @@ public class Road : MonoBehaviour, IPointerClickHandler
             }
             else
             {
-                PlayerManager.Instance.playerPos.Translate(Vector3.right * Time.deltaTime /5);
-
+                PlayerManager.Instance.playerPos.Translate(Vector3.right * Time.deltaTime / 5);
             }
         }
         else if (!PlayerManager.Instance.isWalk && isClickEvent && isEvent)

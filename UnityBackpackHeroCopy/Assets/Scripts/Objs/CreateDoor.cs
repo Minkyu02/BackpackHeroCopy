@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class CreateChest : Road
+public class CreateDoor : Road
 {
-    public GameObject chest = null;
-    // Start is called before the first frame update
-
+    private void Awake()
+    {
+    }
     protected override void Start()
     {
         base.Start();
@@ -26,7 +26,8 @@ public class CreateChest : Road
     protected override void AnyEvent()
     {
         base.AnyEvent();
-        chest.SetActive(true);
+        GameManager.Instance.nextStageDoor.SetActive(true);
+        GameManager.Instance.playMaps[mapIndex].GetComponent<Road>().isHaveEvent = false;
         Destroy(gameObject);
     }
 }

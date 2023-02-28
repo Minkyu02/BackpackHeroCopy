@@ -27,6 +27,7 @@ public class TextPlayerTurn : TextBase
 
     IEnumerator Typing()
     {
+        BattleManager.Instance.isRestTime = true;
         for (int i = 0; i < playerTurn.Length; i++)
         {
             text.text = playerTurn.Substring(0, i + 1);
@@ -34,7 +35,7 @@ public class TextPlayerTurn : TextBase
         }
         yield return new WaitForSeconds(0.1f);
         BattleManager.Instance.isPlayerTurn = true;
-        BattleManager.Instance.isRestTime = true;
+        BattleManager.Instance.isRestTime = false;
         gameObject.SetActive(false);
     }
 

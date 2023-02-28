@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class GameManager : SingleTonBase<GameManager>
 {
+    public GameObject nextStageDoor = null;
     public GameObject playerTurntext = null;
+    public GameObject chest = null;
+    public List<Transform> playMaps = null;
     public int upgradeCount = 0;
     public bool rootMode = false;
     public bool battleMode = false;

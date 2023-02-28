@@ -16,17 +16,21 @@ public class Chest : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Awake()
     {
+        GameManager.Instance.chest = gameObject;
         for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length; i++)
         {
             itemPrefebs.Add(Resources.LoadAll<GameObject>("Prefebs/Item/Items")[i]);
         }
         ChestImg = transform.GetChild(0).GetComponent<Image>();
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         isOpen = false;
         ChestImg.sprite = unopenChestImg;
+    }
+    private void Start() {
     }
     // Update is called once per frame
     void Update()
@@ -41,9 +45,10 @@ public class Chest : MonoBehaviour, IPointerClickHandler
             GameManager.Instance.RootMode();
             isOpen = true;
             ChestImg.sprite = openChestImg;
-            for (int i = 0; i < Random.Range(3, 7); i++)
+            for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length; i++)
             {
-                item = Instantiate(itemPrefebs[Random.Range(0, Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length)]);
+                item = Instantiate(itemPrefebs[i]);
+                // item = Instantiate(itemPrefebs[Random.Range(0, Resources.LoadAll<GameObject>("Prefebs/Item/Items").Length)]);
                 item.transform.SetParent(parentsTrans, false);
                 item.transform.localPosition = new Vector2(Random.Range(-800f, 700f), Random.Range(-300f, -500f));
             }

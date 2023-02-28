@@ -17,8 +17,8 @@ public class PlayerManager : SingleTonBase<PlayerManager>
     public bool isLevelUp = false;
     public bool isAttacked = false;
     public bool isWalk = false;
-    public RectTransform mapPlayerPos = null;
-    public RectTransform targetPos = null;
+    public int mapPlayerPos = 0;
+    public int targetPos = 0;
     public RectTransform playerPos = null;
     protected override void Awake()
     {

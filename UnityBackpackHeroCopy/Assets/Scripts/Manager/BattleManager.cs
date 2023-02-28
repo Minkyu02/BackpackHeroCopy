@@ -9,8 +9,6 @@ public class BattleManager : SingleTonBase<BattleManager>
     public bool isBattleEnd = true;
     public bool isPlayerTurn = true;
     public bool isRestTime = false;
-    // 미니맵에서 적 구역을 눌렀을 때 Instantiate하면서 몬스터의 정보를 List에다가 넣어줌, Enemy의 체력이 0이 될 때 리스트에서 삭제, 리스트가 비어있을 때 LevelUpCheck 실행
-    // Start is called before the first frame update
 
 
     protected override void Awake()
@@ -33,9 +31,11 @@ public class BattleManager : SingleTonBase<BattleManager>
         if (!enemyList.Any() && !isBattleEnd)
         {
             isBattleEnd = true;
+            isRestTime = true;
             PlayerManager.Instance.LevelUpCheck();
         }
     }
+
 
     public void EnemyBattle()
     {

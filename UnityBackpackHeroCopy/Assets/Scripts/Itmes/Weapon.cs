@@ -25,10 +25,9 @@ public class Weapon : Item
 
     private void UseReSet()
     {
-        if (BattleManager.Instance.isRestTime)
+        if (useAbleCount != 1 && BattleManager.Instance.isRestTime)
         {
             useAbleCount = 1;
-            BattleManager.Instance.isRestTime = false;
         }
     }
     protected override void DistancePockets()
@@ -100,9 +99,11 @@ public class Weapon : Item
         if (useAbleCount <= 0)
         {
             transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f, 255);
+            itemUseAble = false;
         }
         else
         {
+            itemUseAble = true;
             transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 255);
         }
     }
