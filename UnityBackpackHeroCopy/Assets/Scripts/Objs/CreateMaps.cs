@@ -8,13 +8,43 @@ public class CreateMaps : MonoBehaviour
     public GameObject eventParents = null;
     private GameObject nextDoorPrefebs = null;
     // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
-        GameManager.Instance.playMaps = new List<Transform>();
         for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Event").Length; i++)
         {
             eventPrefebs.Add(Resources.LoadAll<GameObject>("Prefebs/Event")[i]);
         }
+
+        if (this.name == "Stage1")
+        {
+            GameManager.Instance.stage1 = this.gameObject;
+        }
+        else if (this.name == "Stage2")
+        {
+            GameManager.Instance.stage2 = this.gameObject;
+            gameObject.SetActive(false);
+        }
+    }
+
+    void Start()
+    {
+        MapCreate();
+    }
+
+    void OnDisable()
+    {
+        if (this.name == "Stage1")
+        {
+            for (int i = 0; i < eventParents.transform.childCount; i++) {
+                Destroy(eventParents.transform.GetChild(i));
+            }
+        }
+    }
+
+    private void MapCreate()
+    {
+        GameManager.Instance.playMaps = new List<Transform>();
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -22,6 +52,7 @@ public class CreateMaps : MonoBehaviour
             GameManager.Instance.playMaps[i].GetComponent<Road>().mapIndex = i;
         }
 
+        // 방 맨끝에 문 이벤트 생성
         nextDoorPrefebs = Resources.Load<GameObject>("Prefebs/Door/DoorEvent");
         GameObject nextDoor = Instantiate(nextDoorPrefebs);
         nextDoor.transform.SetParent(eventParents.transform, false);
@@ -35,6 +66,7 @@ public class CreateMaps : MonoBehaviour
         chestEvent.GetComponent<Road>().mapIndex = 1;
         GameManager.Instance.playMaps[1].GetComponent<Road>().isHaveEvent = true;
 
+        // 
         for (int i = 0; i < Resources.LoadAll<GameObject>("Prefebs/Event").Length; i++)
         {
             GameObject playEvent = Instantiate(eventPrefebs[i]);
@@ -52,7 +84,6 @@ public class CreateMaps : MonoBehaviour
             playEvent.GetComponent<Road>().mapIndex = EventPos;
             GameManager.Instance.playMaps[EventPos].GetComponent<Road>().isHaveEvent = true;
         }
-
     }
 
     // Update is called once per frame

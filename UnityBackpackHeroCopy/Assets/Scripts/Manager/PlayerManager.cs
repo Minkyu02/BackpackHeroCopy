@@ -24,6 +24,7 @@ public class PlayerManager : SingleTonBase<PlayerManager>
     public bool isAttacked = false;
     public bool isUseItem = false;
     public bool isWin = false;
+    public GameObject mapPlayerIcon = null;
     public RectTransform playerPos = null;
     public Coroutine delay = null;
 

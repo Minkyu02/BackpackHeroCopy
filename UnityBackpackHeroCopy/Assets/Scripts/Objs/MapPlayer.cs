@@ -7,7 +7,7 @@ public class MapPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        PlayerManager.Instance.mapPlayerIcon = gameObject;
     }
 
     // Update is called once per frame

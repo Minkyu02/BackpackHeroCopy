@@ -59,7 +59,7 @@ public class Food : Item
             PlayerManager.Instance.isUseItem = true;
             base.ItemEffect();
             itemLeft--;
-            PlayerManager.Instance.playerActionPoint++;
+            PlayerManager.Instance.playerActionPoint += 2;
         }
         else
         {

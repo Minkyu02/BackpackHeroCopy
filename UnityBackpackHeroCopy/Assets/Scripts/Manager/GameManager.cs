@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingleTonBase<GameManager>
 {
+    public GameObject stage1 = null;
+    public GameObject stage2 = null;
     public GameObject dieScene = null;
     public GameObject nextStageDoor = null;
     public GameObject playerTurntext = null;
