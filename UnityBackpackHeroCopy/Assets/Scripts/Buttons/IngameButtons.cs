@@ -16,8 +16,8 @@ public class IngameButtons : MonoBehaviour
     void Start()
     {
         image = gameObject.transform.GetChild(0).GetComponent<Image>();
-        ButtonManager.Instance.btn_SwapTop = this.gameObject; 
-        
+        ButtonManager.Instance.btn_SwapTop = this.gameObject;
+
     }
 
     // Update is called once per frame
@@ -45,21 +45,24 @@ public class IngameButtons : MonoBehaviour
 
     public void Btn_Swap()
     {
-        if (isBag)
+        if (!GameManager.Instance.battleMode)
         {
-            isFin = false;
-            isBag = false;
-            isLeft = true;
-            image.sprite = buttonImg[0];
-            PlayerManager.Instance.isMap = true;
-        }
-        else
-        {
-            isFin = false;
-            isBag = true;
-            isLeft = false;
-            image.sprite = buttonImg[1];
-            PlayerManager.Instance.isMap = false;
+            if (isBag)
+            {
+                isFin = false;
+                isBag = false;
+                isLeft = true;
+                image.sprite = buttonImg[0];
+                PlayerManager.Instance.isMap = true;
+            }
+            else
+            {
+                isFin = false;
+                isBag = true;
+                isLeft = false;
+                image.sprite = buttonImg[1];
+                PlayerManager.Instance.isMap = false;
+            }
         }
     }
 

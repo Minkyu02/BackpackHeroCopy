@@ -31,20 +31,19 @@ public class CreatEnemy : Road
 
     protected override void AnyEvent()
     {
-        base.AnyEvent();
         PlayerManager.Instance.playerActionPoint = 3;
+        base.AnyEvent();
         for (int i = 0; i < Random.Range(1, 4); i++)
         {
             enemy = Instantiate(enemyPrefebs[Random.Range(0, Resources.LoadAll<GameObject>("Prefebs/Enemy").Length)]);
             enemy.transform.SetParent(GameObject.Find("GameObjs").transform, false);
             enemy.transform.localPosition = new Vector3(300 + 200 * i, -360f, 0f);
             BattleManager.Instance.enemyList.Add(enemy);
-            GameManager.Instance.BattleMode();
             BattleManager.Instance.isBattleEnd = false;
             ButtonManager.Instance.btn_EndTurn.SetActive(true);
         }
+        GameManager.Instance.BattleMode();
         GameManager.Instance.playMaps[mapIndex].GetComponent<Road>().isHaveEvent = false;
         Destroy(gameObject);
-
     }
 }

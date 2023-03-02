@@ -52,6 +52,7 @@ public class Door : MonoBehaviour, IPointerClickHandler
             case 1:
                 GameManager.Instance.stage1.SetActive(false);
                 GameManager.Instance.stage2.SetActive(true);
+                GameManager.Instance.stageLoad.SetActive(true);
                 PlayerManager.Instance.playerPos.transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
                 PlayerManager.Instance.playerPos.localPosition = new Vector2(-600f, -390f);
                 PlayerManager.Instance.targetPos = 0;

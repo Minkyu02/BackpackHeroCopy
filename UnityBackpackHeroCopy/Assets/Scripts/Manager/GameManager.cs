@@ -9,6 +9,7 @@ public class GameManager : SingleTonBase<GameManager>
     public GameObject dieScene = null;
     public GameObject nextStageDoor = null;
     public GameObject playerTurntext = null;
+    public GameObject stageLoad = null;
     public GameObject chest = null;
     public List<Transform> playMaps = null;
     public int upgradeCount = 0;

@@ -15,12 +15,16 @@ public class InventoryBg : MonoBehaviour, IPointerDownHandler
     public int index_X = 0;
     public RectTransform rect = null;
     private Transform parentsTransform = null;
+    RectTransform backPackImg = null;
+    RectTransform backPackBgImg = null;
     // Start is called before the first frame update
     void Start()
     {
         rect = GetComponent<RectTransform>();
         image = GetComponent<Image>();
         parentsTransform = transform.parent.parent.GetChild(2);
+        backPackImg = gameObject.transform.parent.parent.GetChild(0).GetComponent<RectTransform>();
+        backPackBgImg = gameObject.transform.parent.parent.GetChild(1).GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -31,10 +35,11 @@ public class InventoryBg : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isChoose)
+        if (isChoose && !isActive && transform.parent.parent.GetComponent<InventoryUpgrade>().isLevelup)
         {
             GameManager.Instance.upgradeCount++;
             isChoose = false;
+            ContractInventory();
             transform.GetChild(1).gameObject.SetActive(false);
         }
         else if (!isActive && !isChoose && GameManager.Instance.upgradeCount > 0)
@@ -42,7 +47,6 @@ public class InventoryBg : MonoBehaviour, IPointerDownHandler
             GameManager.Instance.upgradeCount--;
             ExpendInventory();
             isChoose = true;
-
         }
     }
 
@@ -78,10 +82,131 @@ public class InventoryBg : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    public void ContractInventory()
+    {
+        bool isExpand = false;
+        switch (index_X)
+        {
+            case 0:
+                for (int y = 0; y < InventoryManager.Instance.backpack2Array.GetUpperBound(0); y++)
+                {
+                    if (InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isChoose || InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isActive)
+                    {
+                        isExpand = true;
+                        break;
+                    }
+                }
+                if (InventoryManager.Instance.expendLeft == 2 && !isExpand)
+                {
+                    backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x - rect.sizeDelta.x, backPackImg.sizeDelta.y);
+                    backPackBgImg.sizeDelta = new Vector2(backPackBgImg.sizeDelta.x - rect.sizeDelta.x, backPackBgImg.sizeDelta.y);
+                    backPackImg.anchoredPosition = new Vector2(backPackImg.anchoredPosition.x + 50, backPackImg.anchoredPosition.y);
+                    backPackBgImg.anchoredPosition = new Vector2(backPackBgImg.anchoredPosition.x + 50, backPackBgImg.anchoredPosition.y);
+                    InventoryManager.Instance.expendLeft--;
+                    break;
+                }
+                break;
+            case 1:
+                for (int y = 0; y < InventoryManager.Instance.backpack2Array.GetUpperBound(0); y++)
+                {
+                    if (InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isChoose || InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isActive)
+                    {
+                        isExpand = true;
+                        break;
+                    }
+                }
+                if (InventoryManager.Instance.expendLeft == 1 && !isExpand)
+                {
+                    backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x - rect.sizeDelta.x, backPackImg.sizeDelta.y);
+                    backPackBgImg.sizeDelta = new Vector2(backPackBgImg.sizeDelta.x - rect.sizeDelta.x, backPackBgImg.sizeDelta.y);
+                    backPackImg.anchoredPosition = new Vector2(backPackImg.anchoredPosition.x + 50, backPackImg.anchoredPosition.y);
+                    backPackBgImg.anchoredPosition = new Vector2(backPackBgImg.anchoredPosition.x + 50, backPackBgImg.anchoredPosition.y);
+                    InventoryManager.Instance.expendLeft--;
+                }
+                break;
+            case 5:
+                for (int y = 0; y < InventoryManager.Instance.backpack2Array.GetUpperBound(0); y++)
+                {
+                    if (InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isChoose || InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isActive)
+                    {
+                        isExpand = true;
+                        break;
+                    }
+                }
+                if (InventoryManager.Instance.expendRight == 1 && !isExpand)
+                {
+                    backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x - rect.sizeDelta.x, backPackImg.sizeDelta.y);
+                    backPackBgImg.sizeDelta = new Vector2(backPackBgImg.sizeDelta.x - rect.sizeDelta.x, backPackBgImg.sizeDelta.y);
+                    backPackImg.anchoredPosition = new Vector2(backPackImg.anchoredPosition.x - 50, backPackImg.anchoredPosition.y);
+                    backPackBgImg.anchoredPosition = new Vector2(backPackBgImg.anchoredPosition.x - 50, backPackBgImg.anchoredPosition.y);
+                    InventoryManager.Instance.expendRight--;
+                }
+                break;
+            case 6:
+                for (int y = 0; y < InventoryManager.Instance.backpack2Array.GetUpperBound(0); y++)
+                {
+                    if (InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isChoose || InventoryManager.Instance.backpack2Array[y, index_X].GetComponent<InventoryBg>().isActive)
+                    {
+                        isExpand = true;
+                        break;
+                    }
+                }
+                if (InventoryManager.Instance.expendRight == 2 && !isExpand)
+                {
+                    backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x - rect.sizeDelta.x, backPackImg.sizeDelta.y);
+                    backPackBgImg.sizeDelta = new Vector2(backPackBgImg.sizeDelta.x - rect.sizeDelta.x, backPackBgImg.sizeDelta.y);
+                    backPackImg.anchoredPosition = new Vector2(backPackImg.anchoredPosition.x - 50, backPackImg.anchoredPosition.y);
+                    backPackBgImg.anchoredPosition = new Vector2(backPackBgImg.anchoredPosition.x - 50, backPackBgImg.anchoredPosition.y);
+                    InventoryManager.Instance.expendRight--;
+                }
+                break;
+        }
+        switch (index_Y)
+        {
+            case 0:
+                for (int x = 0; x < InventoryManager.Instance.backpack2Array.GetUpperBound(1); x++)
+                {
+                    if (InventoryManager.Instance.backpack2Array[index_Y, x].GetComponent<InventoryBg>().isChoose || InventoryManager.Instance.backpack2Array[index_Y, index_X].GetComponent<InventoryBg>().isActive)
+                    {
+                        isExpand = true;
+                        break;
+                    }
+                }
+                if (InventoryManager.Instance.expendUp == 1 && !isExpand)
+                {
+                    backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x, backPackImg.sizeDelta.y - rect.sizeDelta.y);
+                    backPackBgImg.sizeDelta = new Vector2(backPackBgImg.sizeDelta.x, backPackBgImg.sizeDelta.y - rect.sizeDelta.y);
+                    backPackImg.anchoredPosition = new Vector3(backPackImg.anchoredPosition.x, backPackImg.anchoredPosition.y - 50);
+                    backPackBgImg.anchoredPosition = new Vector3(backPackBgImg.anchoredPosition.x, backPackBgImg.anchoredPosition.y - 50);
+                    InventoryManager.Instance.expendUp--;
+                }
+                break;
+            case 4:
+                for (int x = 0; x < InventoryManager.Instance.backpack2Array.GetUpperBound(1); x++)
+                {
+                    if (InventoryManager.Instance.backpack2Array[index_Y, x].GetComponent<InventoryBg>().isChoose || InventoryManager.Instance.backpack2Array[index_Y, index_X].GetComponent<InventoryBg>().isActive)
+                    {
+                        isExpand = true;
+                        break;
+                    }
+                }
+
+
+                if (InventoryManager.Instance.expendDown == 1 && !isExpand)
+                {
+                    backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x, backPackImg.sizeDelta.y - rect.sizeDelta.y);
+                    backPackBgImg.sizeDelta = new Vector2(backPackBgImg.sizeDelta.x, backPackBgImg.sizeDelta.y - rect.sizeDelta.y);
+                    backPackImg.anchoredPosition = new Vector3(backPackImg.anchoredPosition.x, backPackImg.anchoredPosition.y + 50);
+                    backPackBgImg.anchoredPosition = new Vector3(backPackBgImg.anchoredPosition.x, backPackBgImg.anchoredPosition.y + 50);
+                    InventoryManager.Instance.expendDown--;
+                }
+                break;
+        }
+    }
+
+
     public void ExpendInventory()
     {
-        RectTransform backPackImg = gameObject.transform.parent.parent.GetChild(0).GetComponent<RectTransform>();
-        RectTransform backPackBgImg = gameObject.transform.parent.parent.GetChild(1).GetComponent<RectTransform>();
         switch (index_X)
         {
             case 0:
@@ -115,7 +240,6 @@ public class InventoryBg : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             case 6:
-
                 if (InventoryManager.Instance.expendRight == 1)
                 {
                     backPackImg.sizeDelta = new Vector2(backPackImg.sizeDelta.x + rect.sizeDelta.x, backPackImg.sizeDelta.y);

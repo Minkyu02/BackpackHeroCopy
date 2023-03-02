@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9db7d7ee0aef688478704027bea1df9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2698551e3b448774ab12bc0b02ef0bd4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -382,6 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mostNearInventory: {fileID: 0}
   isValue: 0
+  useImg: {fileID: 21300000, guid: 9db7d7ee0aef688478704027bea1df9a, type: 3}
 --- !u!114 &4112551579494562545
 MonoBehaviour:
   m_ObjectHideFlags: 0

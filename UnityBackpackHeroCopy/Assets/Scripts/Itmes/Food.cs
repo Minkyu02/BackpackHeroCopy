@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Food : Item
 {
     private int itemLeft = 2;
+    public Sprite useImg = null;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -59,6 +61,7 @@ public class Food : Item
             PlayerManager.Instance.isUseItem = true;
             base.ItemEffect();
             itemLeft--;
+            gameObject.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = useImg;
             PlayerManager.Instance.playerActionPoint += 2;
         }
         else

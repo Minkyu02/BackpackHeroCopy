@@ -39,11 +39,16 @@ public class BattleManager : SingleTonBase<BattleManager>
         {
             isBattleEnd = true;
             isRestTime = true;
+            StartCoroutine(UseCountReste());
             PlayerManager.Instance.isWin = true;
             PlayerManager.Instance.LevelUpCheck();
         }
     }
 
+    IEnumerator UseCountReste() {
+        yield return null;
+        isRestTime = false;
+    }
 
     public void EnemyBattle()
     {

@@ -8,7 +8,7 @@ public class PlayerManager : SingleTonBase<PlayerManager>
     public int playerActionPoint = 3;
     public int playerLevel = 0;
     public int playerExp = 0;
-    public int playerNextExp = 10;
+    public int playerNextExp = 5;
     public int PlayerFloor = 0;
     public int playerMaxHp = 40;
     public int playerNowHp = 40;
@@ -92,7 +92,7 @@ public class PlayerManager : SingleTonBase<PlayerManager>
         playerActionPoint = 3;
         playerLevel = 0;
         playerExp = 0;
-        playerNextExp = 10;
+        playerNextExp = 5;
         PlayerFloor = 0;
         playerMaxHp = 40;
         playerNowHp = 40;

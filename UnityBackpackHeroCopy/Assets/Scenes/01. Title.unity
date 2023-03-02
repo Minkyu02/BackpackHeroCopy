@@ -1092,6 +1092,7 @@ GameObject:
   - component: {fileID: 964822346}
   - component: {fileID: 964822345}
   - component: {fileID: 964822344}
+  - component: {fileID: 964822347}
   m_Layer: 5
   m_Name: Btn_Quit
   m_TagString: Untagged
@@ -1164,13 +1165,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1618178299}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1618178304}
+        m_TargetAssemblyTypeName: TitleButtons, Assembly-CSharp
+        m_MethodName: Btn_Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1214,6 +1215,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964822342}
   m_CullTransparentMesh: 1
+--- !u!114 &964822347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964822342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584525bffb2290a408f5be6b004424b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &972145161
 GameObject:
   m_ObjectHideFlags: 0
