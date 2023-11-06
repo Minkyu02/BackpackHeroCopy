@@ -2,7 +2,13 @@ fileFormatVersion: 2
 guid: 62c538fa5d52a7a4cbdba6d12a62143e
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 8842939037512429223
+    second: dungeonEventSpawn
+  - first:
+      74: -4802956656573740095
+    second: dungeonEventDespawn
   externalObjects: {}
   materials:
     materialImportMode: 2

@@ -2,7 +2,13 @@ fileFormatVersion: 2
 guid: f082c367525bb3b459ad908ed8e459fa
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 2740126861399363903
+    second: mainMenuIntroAnimation
+  - first:
+      74: -3691462338107184724
+    second: mainMenuOpenAnimation
   externalObjects: {}
   materials:
     materialImportMode: 2
